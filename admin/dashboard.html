@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Desa Ujungbatu Timur</title>
+    <!-- Menghubungkan ke file CSS utama (atau bisa dibuatkan CSS khusus admin) -->
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Gaya khusus untuk dashboard admin */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5; /* Warna latar belakang yang lebih modern */
+            margin: 0;
+            display: flex; /* Menggunakan flexbox untuk layout sidebar dan konten */
+            min-height: 100vh; /* Pastikan body mengisi tinggi viewport */
+            color: #333;
+        }
+
+        /* Gaya Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50; /* Warna sidebar gelap */
+            color: white;
+            padding: 20px 0; /* Padding atas dan bawah, tanpa padding samping untuk item menu */
+            box-shadow: 2px 0 8px rgba(0,0,0,0.15); /* Bayangan sedikit untuk efek kedalaman */
+            display: flex; /* Flex container untuk konten sidebar */
+            flex-direction: column; /* Konten sidebar akan tersusun vertikal */
+            position: sticky; /* Sidebar tetap di tempat saat scroll */
+            top: 0; /* Jaga sidebar di bagian atas */
+            left: 0; /* Jaga sidebar di kiri */
+        }
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #ecf0f1; /* Warna teks judul sidebar */
+            font-size: 1.8em;
+            padding: 0 15px; /* Padding untuk judul */
+        }
+        .sidebar nav ul {
+            list-style: none; /* Hilangkan bullet point */
+            padding: 0; /* Hilangkan padding default */
+            margin: 0; /* Hilangkan margin default */
+        }
+        .sidebar nav ul li {
+            margin-bottom: 5px; /* Jarak antar item menu */
+        }
+        .sidebar nav ul li a {
+            color: white; /* Warna teks link */
+            text-decoration: none; /* Hilangkan garis bawah */
+            padding: 12px 20px; /* Padding untuk setiap link */
+            display: block; /* Agar link mengisi seluruh lebar item list */
+            border-radius: 0; /* Hilangkan border radius untuk tampilan lebih bersih */
+            transition: background-color 0.3s ease, padding-left 0.3s ease; /* Transisi halus */
+            font-size: 1.05em;
+        }
+        .sidebar nav ul li a:hover {
+            background-color: #34495e; /* Warna latar belakang saat dihover */
+            padding-left: 25px; /* Efek sedikit bergeser ke kanan saat dihover */
+        }
+        .sidebar nav ul li a.active {
+            background-color: #007bff; /* Warna latar belakang untuk menu aktif */
+            font-weight: bold; /* Teks lebih tebal untuk menu aktif */
+            box-shadow: inset 3px 0 0 #fff; /* Garis putih di kiri menu aktif */
+        }
+        .logout-btn {
+            margin-top: auto; /* Dorong tombol logout ke bawah sidebar */
+            padding: 15px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Garis pemisah */
+        }
+        .logout-btn a {
+            background-color: #e74c3c; /* Warna merah untuk logout */
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+        .logout-btn a:hover {
+            background-color: #c0392b;
+        }
+
+
+        /* Gaya Konten Utama */
+        .main-content {
+            flex-grow: 1; /* Konten utama akan mengambil sisa ruang */
+            padding: 30px;
+            background-color: #ecf0f1; /* Latar belakang konten */
+        }
+        .main-content h1 {
+            margin-bottom: 30px;
+            color: #2c3e50; /* Warna judul utama */
+            font-size: 2.5em;
+            border-bottom: 2px solid #007bff; /* Garis bawah biru */
+            padding-bottom: 10px;
+        }
+
+        /* Gaya Card Informasi */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsif */
+            gap: 25px; /* Jarak antar card */
+            margin-bottom: 40px;
+        }
+        .card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 10px; /* Sudut lebih membulat */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* Bayangan lebih halus */
+            text-align: center;
+            transition: transform 0.3s ease; /* Efek hover */
+        }
+        .card:hover {
+            transform: translateY(-5px); /* Sedikit naik saat dihover */
+        }
+        .card h3 {
+            color: #007bff; /* Warna judul card */
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+        .card p {
+            font-size: 2.8em; /* Ukuran angka lebih besar */
+            font-weight: 700; /* Lebih tebal */
+            color: #34495e; /* Warna angka */
+            margin-top: 0;
+        }
+
+        /* Gaya Area Aksi/Formulir */
+        .action-area {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+        .action-area h2 {
+            color: #2c3e50;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .action-area .form-group {
+            margin-bottom: 20px;
+        }
+        .action-area label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .action-area input[type="text"],
+        .action-area input[type="email"],
+        .action-area input[type="date"],
+        .action-area textarea,
+        .action-area select {
+            width: calc(100% - 22px); /* Penyesuaian lebar untuk padding */
+            padding: 12px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            box-sizing: border-box; /* Agar padding tidak menambah lebar */
+        }
+        .action-area textarea {
+            resize: vertical; /* Izinkan textarea di-resize secara vertikal */
+            min-height: 100px;
+        }
+        .action-area button {
+            background-color: #28a745; /* Warna hijau untuk tombol simpan/tambah */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .action-area button:hover {
+            background-color: #218838;
+        }
+
+        /* Gaya Tabel Data */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .data-table .action-buttons button {
+            background-color: #ffc107; /* Edit */
+            color: #333;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+            transition: background-color 0.2s ease;
+        }
+        .data-table .action-buttons button:hover {
+            background-color: #e0a800;
+        }
+        .data-table .action-buttons button.delete {
+            background-color: #dc3545; /* Delete */
+            color: white;
+        }
+        .data-table .action-buttons button.delete:hover {
+            background-color: #c82333;
+        }
+        .data-table img {
+            max-width: 60px; /* Ukuran gambar di tabel */
+            height: auto;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="admin-dashboard">
+    <!-- Sidebar Navigasi Admin -->
+    <div class="sidebar">
+        <h2>Admin Desa</h2>
+        <nav>
+            <ul>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="#kelola-surat">Kelola Surat</a></li>
+                <li><a href="#kelola-berita">Kelola Berita</a></li>
+                <li><a href="#kelola-profil">Kelola Profil Desa</a></li>
+                <li><a href="#kelola-struktur">Kelola Struktur Pegawai</a></li>
+                <li><a href="#pengaturan">Pengaturan</a></li>
+            </ul>
+        </nav>
+        <div class="logout-btn">
+            <a href="login.html">Logout</a>
+        </div>
+    </div>
+
+    <!-- Konten Utama Dashboard -->
+    <div class="main-content">
+        <h1>Dashboard Admin</h1>
+
+        <!-- Bagian Ringkasan Data -->
+        <div class="card-grid">
+            <div class="card">
+                <h3>Total Permintaan Surat</h3>
+                <p>125</p>
+            </div>
+            <div class="card">
+                <h3>Surat Belum Diproses</h3>
+                <p>15</p>
+            </div>
+            <div class="card">
+                <h3>Jumlah Berita</h3>
+                <p>28</p>
+            </div>
+            <div class="card">
+                <h3>Pengunjung Hari Ini</h3>
+                <p>345</p>
+            </div>
+        </div>
+
+        <!-- Bagian Kelola Surat -->
+        <section id="kelola-surat" class="action-area">
+            <h2>Kelola Surat & Layanan</h2>
+            <p>Di sini Anda dapat melihat, menambah, mengedit, atau menghapus jenis surat yang tersedia untuk layanan desa. Juga memantau permintaan surat dari warga.</p>
+
+            <h3>Daftar Permintaan Surat Baru</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Jenis Surat</th>
+                        <th>Nama Pemohon</th>
+                        <th>Tanggal Pengajuan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Contoh Data Surat -->
+                    <tr>
+                        <td>1</td>
+                        <td>Surat Keterangan Domisili</td>
+                        <td>Budi Santoso</td>
+                        <td>2023-11-20</td>
+                        <td><span style="color: orange;">Menunggu</span></td>
+                        <td class="action-buttons">
+                            <button>Lihat Detail</button>
+                            <button style="background-color: #28a745; color: white;">Proses</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Surat Pengantar KTP</td>
+                        <td>Siti Aminah</td>
+                        <td>2023-11-19</td>
+                        <td><span style="color: green;">Selesai</span></td>
+                        <td class="action-buttons">
+                            <button>Lihat Detail</button>
+                            <!-- <button class="delete">Hapus</button> -->
+                        </td>
+                    </tr>
+                    <!-- Data surat lainnya akan dimuat secara dinamis dari database -->
+                </tbody>
+            </table>
+
+            <h3>Tambah Jenis Layanan Surat Baru</h3>
+            <form>
+                <div class="form-group">
+                    <label for="jenis_surat">Nama Jenis Surat:</label>
+                    <input type="text" id="jenis_surat" name="jenis_surat" placeholder="Cth: Surat Pengantar Kartu Keluarga" required>
+                </div>
+                <div class="form-group">
+                    <label for="deskripsi_layanan">Deskripsi Layanan:</label>
+                    <textarea id="deskripsi_layanan" name="deskripsi_layanan" rows="4" placeholder="Jelaskan tujuan dan kegunaan surat ini..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="persyaratan">Persyaratan (pisahkan dengan koma):</label>
+                    <input type="text" id="persyaratan" name="persyaratan" placeholder="Cth: Fotokopi KTP, Fotokopi KK, Surat Pengantar RT/RW">
+                </div>
+                <button type="submit">Tambah Jenis Surat</button>
+            </form>
+        </section>
+
+        <!-- Bagian Kelola Berita -->
+        <section id="kelola-berita" class="action-area">
+            <h2>Kelola Berita & Informasi</h2>
+            <p>Tambahkan, edit, atau hapus berita dan informasi terkini untuk ditampilkan di website desa.</p>
+
+            <h3>Daftar Berita Aktif</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Judul Berita</th>
+                        <th>Tanggal Publikasi</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Contoh Data Berita -->
+                    <tr>
+                        <td>1</td>
+                        <td>Pembangunan Infrastruktur Jalan Desa</td>
+                        <td>2023-11-15</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button class="delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Pelatihan Kewirausahaan untuk UMKM Desa</td>
+                        <td>2023-11-10</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button class="delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <!-- Data berita lainnya akan dimuat secara dinamis dari database -->
+                </tbody>
+            </table>
+
+            <h3>Tambah Berita Baru</h3>
+            <form>
+                <div class="form-group">
+                    <label for="judul_berita">Judul Berita:</label>
+                    <input type="text" id="judul_berita" name="judul_berita" required>
+                </div>
+                <div class="form-group">
+                    <label for="tanggal_publikasi">Tanggal Publikasi:</label>
+                    <input type="date" id="tanggal_publikasi" name="tanggal_publikasi" required>
+                </div>
+                <div class="form-group">
+                    <label for="isi_berita">Isi Berita:</label>
+                    <textarea id="isi_berita" name="isi_berita" rows="10" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="gambar_berita">Gambar Berita:</label>
+                    <input type="file" id="gambar_berita" name="gambar_berita" accept="image/*">
+                </div>
+                <button type="submit">Publikasikan Berita</button>
+            </form>
+        </section>
+
+        <!-- Bagian Kelola Profil Desa -->
+        <section id="kelola-profil" class="action-area">
+            <h2>Kelola Profil Desa</h2>
+            <p>Perbarui informasi dasar tentang desa, seperti sejarah, visi misi, geografi, dan kontak.</p>
+
+            <form>
+                <div class="form-group">
+                    <label for="sejarah_desa">Sejarah Desa:</label>
+                    <textarea id="sejarah_desa" name="sejarah_desa" rows="6">Desa Ujungbatu Timur didirikan pada tahun [Tahun Pendirian - contoh: 1980] sebagai pemekaran dari [Desa Induk - contoh: Desa Ujungbatu]...</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="visi_desa">Visi Desa:</label>
+                    <input type="text" id="visi_desa" name="visi_desa" value="Mewujudkan Desa Ujungbatu Timur yang Mandiri, Sejahtera, dan Berbudaya...">
+                </div>
+                <div class="form-group">
+                    <label for="misi_desa">Misi Desa (pisahkan dengan baris baru):</label>
+                    <textarea id="misi_desa" name="misi_desa" rows="6">- Meningkatkan kualitas sumber daya manusia melalui pendidikan dan pelatihan.
+- Mengembangkan potensi ekonomi lokal melalui pertanian, perkebunan, dan UMKM.
+- Mewujudkan tata kelola pemerintahan desa yang baik, bersih, dan transparan.</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="alamat_kantor">Alamat Kantor Desa:</label>
+                    <input type="text" id="alamat_kantor" name="alamat_kantor" value="Jl. Raya Ujungbatu Timur No. 1, Kec. Ujungbatu, Kab. Rokan Hulu, Riau">
+                </div>
+                <div class="form-group">
+                    <label for="telepon_kantor">Telepon Kantor:</label>
+                    <input type="text" id="telepon_kantor" name="telepon_kantor" value="(0762) 1234567">
+                </div>
+                <div class="form-group">
+                    <label for="email_kantor">Email Kantor:</label>
+                    <input type="email" id="email_kantor" name="email_kantor" value="info@desa_ujungbatu_timur.go.id">
+                </div>
+                <button type="submit">Perbarui Profil Desa</button>
+            </form>
+        </section>
+
+        <!-- Bagian Kelola Struktur Pegawai -->
+        <section id="kelola-struktur" class="action-area">
+            <h2>Kelola Struktur Organisasi & Pegawai</h2>
+            <p>Atur daftar pegawai kantor desa beserta jabatannya.</p>
+
+            <h3>Daftar Pegawai</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Foto</th>
+                        <th>Nama</th>
+                        <th>Jabatan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Contoh Data Pegawai -->
+                    <tr>
+                        <td>1</td>
+                        <td><img src="../img/struktur_pekerja/kades.jpg" alt="Kades"></td>
+                        <td>Nama Kepala Desa</td>
+                        <td>Kepala Desa</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button class="delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><img src="../img/struktur_pekerja/sekdes.jpg" alt="Sekdes"></td>
+                        <td>Nama Sekretaris Desa</td>
+                        <td>Sekretaris Desa</td>
+                        <td class="action-buttons">
+                            <button>Edit</button>
+                            <button class="delete">Hapus</button>
+                        </td>
+                    </tr>
+                    <!-- Data pegawai lainnya akan dimuat secara dinamis dari database -->
+                </tbody>
+            </table>
+
+            <h3>Tambah Pegawai Baru</h3>
+            <form>
+                <div class="form-group">
+                    <label for="nama_pegawai">Nama Pegawai:</label>
+                    <input type="text" id="nama_pegawai" name="nama_pegawai" required>
+                </div>
+                <div class="form-group">
+                    <label for="jabatan_pegawai">Jabatan:</label>
+                    <input type="text" id="jabatan_pegawai" name="jabatan_pegawai" required>
+                </div>
+                <div class="form-group">
+                    <label for="foto_pegawai">Foto Pegawai:</label>
+                    <input type="file" id="foto_pegawai" name="foto_pegawai" accept="image/*">
+                </div>
+                <button type="submit">Tambah Pegawai</button>
+            </form>
+        </section>
+
+        <!-- Bagian Pengaturan Umum (opsional) -->
+        <section id="pengaturan" class="action-area">
+            <h2>Pengaturan Umum</h2>
+            <p>Pengaturan akun admin, logo website, atau tema.</p>
+            <form>
+                <div class="form-group">
+                    <label for="admin_username">Username Admin:</label>
+                    <input type="text" id="admin_username" name="admin_username" value="admin">
+                </div>
+                <div class="form-group">
+                    <label for="admin_password">Ubah Password Admin:</label>
+                    <input type="password" id="admin_password" name="admin_password" placeholder="Biarkan kosong jika tidak ingin mengubah">
+                </div>
+                <div class="form-group">
+                    <label for="konfirmasi_password">Konfirmasi Password Baru:</label>
+                    <input type="password" id="konfirmasi_password" name="konfirmasi_password">
+                </div>
+                <button type="submit">Simpan Pengaturan</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Menghubungkan ke file JavaScript eksternal (jika ada, untuk interaktivitas) -->
+    <!-- Untuk dashboard admin, Anda mungkin ingin JavaScript terpisah untuk fitur dinamis -->
+    <script src="../js/script.js"></script>
+    <script>
+        // JavaScript untuk highlight menu sidebar aktif saat di-klik
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarLinks = document.querySelectorAll('.sidebar nav ul li a');
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // Hapus kelas 'active' dari semua link
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    // Tambahkan kelas 'active' ke link yang diklik
+                    this.classList.add('active');
+
+                    // Opsional: Untuk scroll ke bagian yang sesuai
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        e.preventDefault(); // Mencegah perubahan URL
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Set link aktif berdasarkan hash di URL saat halaman dimuat
+            if (window.location.hash) {
+                const activeLink = document.querySelector(`.sidebar nav ul li a[href="${window.location.hash}"]`);
+                if (activeLink) {
+                    sidebarLinks.forEach(l => l.classList.remove('active'));
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    </script>
+</body>
+</html>

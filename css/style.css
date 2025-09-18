@@ -1,0 +1,561 @@
+/* CSS Umum untuk Seluruh Website */
+
+/* Import font dari Google Fonts (opsional, bisa diganti) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* Reset CSS Dasar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Memastikan padding dan border tidak menambah lebar/tinggi elemen */
+}
+
+body {
+    font-family: 'Poppins', sans-serif; /* Menggunakan font Poppins */
+    line-height: 1.6;
+    color: #333; /* Warna teks default */
+    background-color: #f4f7f6; /* Warna latar belakang halaman */
+}
+
+.container {
+    width: 90%; /* Lebar konten utama */
+    max-width: 1200px; /* Batasan lebar maksimal */
+    margin: auto; /* Pusatkan container */
+    overflow: hidden; /* Mengatasi float di dalam container */
+    padding: 0 20px; /* Padding samping untuk responsivitas */
+}
+
+a {
+    color: #007bff; /* Warna link default */
+    text-decoration: none; /* Hilangkan garis bawah pada link */
+}
+
+a:hover {
+    text-decoration: underline; /* Munculkan garis bawah saat dihover */
+}
+
+ul {
+    list-style: none; /* Hilangkan bullet point pada list */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2c3e50; /* Warna judul */
+    margin-bottom: 15px;
+    font-weight: 600; /* Tebal standar untuk judul */
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+/* Header */
+header {
+    background: #fff; /* Latar belakang header putih */
+    color: #333;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee; /* Garis bawah tipis */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Sedikit bayangan */
+}
+
+header .container {
+    display: flex; /* Menggunakan flexbox */
+    justify-content: space-between; /* Logo dan navigasi di sisi berlawanan */
+    align-items: center; /* Pusatkan secara vertikal */
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    height: 50px; /* Tinggi logo */
+    margin-right: 10px;
+}
+
+header .logo h1 {
+    font-size: 1.8em;
+    margin: 0;
+    color: #2c3e50;
+}
+
+header nav ul {
+    display: flex; /* Item navigasi sejajar */
+}
+
+header nav ul li {
+    margin-left: 25px; /* Jarak antar menu */
+}
+
+header nav ul li a {
+    color: #555; /* Warna teks menu */
+    font-weight: 600;
+    padding: 5px 0;
+    transition: color 0.3s ease, border-bottom 0.3s ease; /* Efek transisi */
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: #007bff; /* Warna saat dihover/aktif */
+    border-bottom: 2px solid #007bff; /* Garis bawah saat dihover/aktif */
+    text-decoration: none; /* Hilangkan garis bawah default */
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://nusaperdana.com/assets/berita/original/47283437894-img-20210727-wa0026.jpg);
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 0;
+    min-height: 450px; /* Tinggi minimum hero */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1; /* Pastikan konten di atas overlay */
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Overlay gelap */
+    z-index: -1; /* Posisikan di bawah konten */
+}
+
+.hero h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Efek bayangan teks */
+}
+
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    color: #eee;
+}
+
+/* Tombol (Buttons) */
+.button {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background: #0056b3;
+    text-decoration: none;
+}
+
+.button-secondary {
+    display: inline-block;
+    background: #6c757d; /* Warna abu-abu */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 400;
+    transition: background-color 0.3s ease;
+}
+
+.button-secondary:hover {
+    background: #5a6268;
+    text-decoration: none;
+}
+
+
+/* Section Umum */
+section {
+    padding: 60px 0;
+    border-bottom: 1px solid #eee; /* Garis pemisah antar section */
+}
+
+section:last-of-type {
+    border-bottom: none; /* Hilangkan garis bawah untuk section terakhir */
+}
+
+.about-us, .latest-news {
+    background-color: #fff;
+    text-align: center;
+}
+
+.about-us h2, .latest-news h2 {
+    margin-bottom: 30px;
+}
+
+/* News Grid */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsif */
+    gap: 30px; /* Jarak antar artikel berita */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.news-item {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    text-align: left;
+    transition: transform 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-5px); /* Efek naik saat dihover */
+}
+
+.news-item h3 {
+    font-size: 1.3em;
+    margin-bottom: 10px;
+    color: #007bff;
+}
+
+.news-item p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* Footer */
+footer {
+    background: #2c3e50; /* Warna gelap untuk footer */
+    color: #ecf0f1;
+    text-align: center;
+    padding: 30px 0;
+}
+
+footer p {
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+footer .social-links a {
+    color: #fff;
+    margin: 0 10px;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer .social-links a:hover {
+    color: #007bff;
+}
+
+/* Gaya untuk Halaman Konten (informasi_desa.html, layanan.html, berita.html, kontak.html) */
+.content-page {
+    padding-top: 40px;
+    padding-bottom: 60px;
+    background-color: #fff; /* Latar belakang putih untuk halaman konten */
+    min-height: calc(100vh - 180px); /* Pastikan halaman konten mengisi sisa tinggi */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.content-page h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.5em;
+    color: #2c3e50;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 15px;
+}
+
+.content-page h3 {
+    margin-top: 30px;
+    color: #007bff;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.section-profile, .section-info {
+    margin-bottom: 40px;
+}
+
+.section-profile ul, .section-info ol {
+    margin-left: 25px;
+    margin-bottom: 20px;
+}
+
+.section-profile ul li, .section-info ol li {
+    margin-bottom: 8px;
+}
+
+/* Struktur Pegawai Grid */
+.struktur-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.pegawai-card {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.pegawai-card:hover {
+    transform: translateY(-5px);
+}
+
+.pegawai-card img {
+    width: 120px; /* Ukuran foto pegawai */
+    height: 120px;
+    border-radius: 50%; /* Bentuk lingkaran */
+    object-fit: cover; /* Pastikan gambar mengisi area dengan baik */
+    margin-bottom: 15px;
+    border: 3px solid #007bff; /* Border biru */
+}
+
+.pegawai-card h4 {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.pegawai-card p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+/* Layanan Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
+
+.service-card {
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+}
+
+.service-card h3 {
+    font-size: 1.4em;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    font-size: 0.95em;
+    color: #666;
+    margin-bottom: 20px;
+    min-height: 50px; /* Agar tinggi card lebih seragam */
+}
+
+/* Berita Halaman Penuh */
+.news-list {
+    margin-top: 30px;
+}
+
+.full-news-item {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.full-news-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.full-news-item h3 {
+    font-size: 2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.full-news-item .news-meta {
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 20px;
+    display: block; /* Agar paragraf tidak mengalir di samping meta */
+}
+
+/* Kontak Form dan Peta */
+.contact-info, .contact-map, .contact-form {
+    margin-bottom: 40px;
+}
+
+.contact-info p {
+    margin-bottom: 10px;
+}
+
+.contact-map iframe {
+    border-radius: 8px;
+    width: 100%; /* Pastikan peta mengisi lebar penuh */
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form input[type="tel"],
+.contact-form textarea {
+    width: calc(100% - 20px); /* Lebar input, kurangi padding */
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Agar padding tidak menambah lebar elemen */
+}
+
+.contact-form textarea {
+    resize: vertical; /* Izinkan textarea di-resize secara vertikal */
+    min-height: 120px;
+}
+
+.contact-form .button {
+    width: auto; /* Tombol tidak mengisi lebar penuh */
+    padding: 12px 30px;
+    font-size: 1.1em;
+}
+
+.form-note {
+    font-size: 0.9em;
+    color: #777;
+    margin-top: 15px;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* Header jadi vertikal */
+        text-align: center;
+    }
+
+    header nav {
+        margin-top: 15px;
+    }
+
+    header nav ul {
+        flex-direction: column; /* Menu navigasi jadi vertikal */
+        align-items: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0; /* Jarak antar menu vertikal */
+    }
+
+    .hero h2 {
+        font-size: 2.2em;
+    }
+
+    .hero p {
+        font-size: 1em;
+    }
+
+    .content-page h2 {
+        font-size: 2em;
+    }
+
+    .pegawai-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+        padding-bottom: 0;
+    }
+
+    .sidebar nav ul {
+        display: flex;
+        flex-wrap: wrap; /* Izinkan menu wrap ke baris baru */
+        justify-content: center;
+    }
+
+    .sidebar nav ul li {
+        margin: 5px;
+    }
+
+    .sidebar nav ul li a {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+
+    .logout-btn {
+        margin-top: 15px;
+        padding: 10px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .card-grid {
+        grid-template-columns: 1fr; /* Satu kolom untuk card di layar kecil */
+    }
+
+    .data-table th, .data-table td {
+        padding: 8px 10px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        
+        width: 95%;
+        padding: 0 10px;
+    }
+
+    .hero {
+        padding: 60px 0;
+    }
+
+    .hero h2 {
+        font-size: 1.8em;
+    }
+
+    .news-grid, .struktur-grid, .services-grid {
+        grid-template-columns: 1fr; /* Satu kolom untuk grid di layar sangat kecil */
+    }
+
+    .full-news-item h3 {
+        font-size: 1.5em;
+    }
+}

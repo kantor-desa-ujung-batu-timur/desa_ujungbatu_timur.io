@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontak Desa Ujungbatu Timur</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="img/logo_desa.png" alt="Logo Desa Ujungbatu Timur">
+                <h1>Desa Ujungbatu Timur</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="informasi_desa.html">Profil Desa</a></li>
+                    <li><a href="layanan.html">Layanan</a></li>
+                    <li><a href="berita.html">Berita</a></li>
+                    <li><a href="kontak.html" class="active">Kontak</a></li>
+                    <li><a href="admin/login.html">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container content-page">
+        <h2>Hubungi Kami</h2>
+        <p>Silakan hubungi kami untuk informasi lebih lanjut atau jika Anda memiliki pertanyaan.</p>
+
+        <section class="contact-info">
+            <h3>Kantor Desa Ujungbatu Timur</h3>
+            <p><strong>Alamat:</strong> Ujung Batu Timur, Kec. Ujung Batu, Kabupaten Rokan Hulu, Riau 28557</p>
+            <p><strong>Telepon:</strong> (0762) 1234567</p>
+            <p><strong>Email:</strong> info@desa_ujungbatu_timur.go.id</p>
+            <p><strong>Jam Kerja:</strong> Senin - Jumat, 08:00 - 16:00 WIB</p>
+        </section>
+
+        <section class="contact-map">
+            <h3>Lokasi Kami</h3>
+            <!-- Embed Google Maps di sini. Ganti src dengan link lokasi kantor desa Anda. -->
+            <!-- Cara mendapatkan embed link: Cari lokasi di Google Maps -> Bagikan -> Sematkan Peta -> Salin HTML -->
+<!-- Google Maps embed — Ujung Batu Timur (search query) -->
+<iframe
+  src="https://maps.google.com/maps?q=Ujung%20Batu%20Timur%2C%20Ujung%20Batu%2C%20Rokan%20Hulu&z=12&output=embed"
+  width="100%"
+  height="450"
+  style="border:0;"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+  title="Peta Ujung Batu Timur (search)">
+</iframe>
+            <small><em>*Peta ini adalah contoh, harap ganti dengan lokasi Kantor Desa Ujungbatu Timur yang sebenarnya.</em></small>
+        </section>
+
+        <section class="contact-form">
+            <h3>Kirim Pesan Kepada Kami</h3>
+            <!-- Form ini memerlukan backend (PHP/Node.js/Python) untuk berfungsi mengirim email -->
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subjek">Subjek:</label>
+                    <input type="text" id="subjek" name="subjek" required>
+                </div>
+                <div class="form-group">
+                    <label for="pesan">Pesan Anda:</label>
+                    <textarea id="pesan" name="pesan" rows="6" required></textarea>
+                </div>
+                <button type="submit" class="button">Kirim Pesan</button>
+            </form>
+            <p class="form-note">*Formulir ini memerlukan konfigurasi server untuk dapat mengirim pesan.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Desa Ujungbatu Timur. Hak Cipta Dilindungi.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
